@@ -1,2 +1,0 @@
-# WorldCup
-Created with CodeSandbox
