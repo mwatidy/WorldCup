@@ -6,6 +6,7 @@ import Instructions from "./Instructions";
 import Login from "./Login";
 import Invited from "./Invited";
 import Team from "./Team";
+import Dashboard from "./Dashboard";
 import Title from "./myComp/Title";
 
 const styles = {
@@ -36,6 +37,9 @@ class App extends React.Component {
             <li>
               <Link to={"/Team"}>Team</Link>
             </li>
+            <li>
+              <Link to={"/Dashboard"}>Dashboard</Link>
+            </li>
           </ul>
           <hr />
 
@@ -44,6 +48,7 @@ class App extends React.Component {
             <Route exact path="/Login" component={Login} />
             <Route exact path="/Invited" component={Invited} />
             <Route exact path="/Team" component={Team} />
+            <Route exact path="/Dashboard" component={Dashboard} />
           </Switch>
         </div>
       </Router>

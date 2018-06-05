@@ -55,22 +55,12 @@ class Team extends React.Component {
     var newV = this.state.friends;
     newV[value].inTeam = !newV[value].inTeam;
     this.setState({ friends: newV });
+  };
 
-    /*
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked
-    });
-    */
+  selectToggle = value => () => {
+    var newV = this.state.friends;
+    newV[value].inTeam = !newV[value].inTeam;
+    this.setState({ friends: newV });
   };
 
   handleChange = event => {
@@ -112,37 +102,48 @@ class Team extends React.Component {
           <Grid xs={12}>
             <Title title="Accepted Invitations" />
             <List>
-              {this.state.friends.map((friend, value) => (
-                <ListItem
-                  key={value}
-                  button
-                  disabled={friend.inTeam ? "approved" : ""}
-                  className={classes.listItem}
-                >
-                  <Avatar alt="Remy Sharp" src={friend.pic} />
-                  <ListItemText
-                    primary={friend.name}
-                    secondary={friend.approved ? "approved" : ""}
-                  />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      disabled={friend.approved ? "1" : ""}
-                      checked={friend.inTeam}
-                      onChange={this.handleToggle(value)}
-                      //onClick = {!friend.inTeam}
-                      //onChange = {this.handleToggle(value)}
-                      //                  onChange={this.handleToggle(value)}
-                      //                  checked={this.state.checked.indexOf(value) !== -1}
+              {this.state.friends.length ? (
+                this.state.friends.map((friend, value) => (
+                  <ListItem
+                    key={value}
+                    button={friend.approved ? "" : "1"}
+                    //disabled={friend.inTeam ? "approved" : ""}
+                    className={classes.listItem}
+                    onClick={friend.approved ? "" : this.selectToggle(value)}
+                  >
+                    <Avatar alt="Remy Sharp" src={friend.pic} />
+                    <ListItemText
+                      primary={friend.name}
+                      secondary={friend.approved ? "approved" : ""}
                     />
-                  </ListItemSecondaryAction>
+                    <ListItemSecondaryAction>
+                      <Checkbox
+                        disabled={friend.approved ? "1" : ""}
+                        checked={friend.inTeam}
+                        onChange={this.handleToggle(value)}
+                        //onClick = {!friend.inTeam}
+                        //onChange = {this.handleToggle(value)}
+                        //                  onChange={this.handleToggle(value)}
+                        //                  checked={this.state.checked.indexOf(value) !== -1}
+                      />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem>
+                  <ListItemText primary="No one opened your invitation yet. " />
                 </ListItem>
-              ))}
+              )}
             </List>
           </Grid>
           <Grid xs={12}>
-            <Button fullWidth>Approve Selected</Button>
+            {this.state.friends.length ? (
+              <Button fullWidth>Approve Selected</Button>
+            ) : (
+              ""
+            )}
             <hr />
-            <Button fullWidth>Invite new members</Button>
+            <Button fullWidth>Invite members</Button>
           </Grid>
         </Section>
       </div>

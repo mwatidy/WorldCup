@@ -8,6 +8,9 @@ const styles = theme => ({
   introTitle: {
     padding: theme.spacing.unit,
     paddingBottom: "0px"
+  },
+  removeMargin: {
+    marginBottom: "0px"
   }
 });
 
@@ -21,14 +24,22 @@ class Title extends React.Component {
           <Typography
             variant="headline"
             component="h3"
-            className={classes.introTitle}
+            className={
+              this.props.removeMargin
+                ? (classes.introTitle, classes.removeMargin)
+                : classes.introTitle
+            }
           >
             {this.props.title}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography
-            className={classes.introTitle}
+            className={
+              this.props.removeMargin
+                ? (classes.introTitle, classes.removeMargin)
+                : classes.introTitle
+            }
             variant="paragraph"
             component="p"
           >
