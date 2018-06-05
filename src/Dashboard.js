@@ -10,6 +10,11 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -95,7 +100,40 @@ class Dashboard extends React.Component {
     return (
       <div className={classes.container}>
         <Section>
-          <Title title="Dashboard" description="" />
+          <Title
+            title="Dashboard"
+            description="Latest announcements and news"
+          />
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                Round 2 Starts soon
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                Your team finished answering
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Your team has answered all the questions and you are now ready
+                to start round 2 soon
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Section>
+        <hr />
+        <Section>
           <Button fullWidth>Start Game</Button>
         </Section>
         <hr />
