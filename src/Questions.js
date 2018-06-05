@@ -5,16 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
 
 const styles = theme => ({
-  img: {
-    height: 500,
-    maxWidth: 400,
-    overflow: "hidden",
-    width: "100%"
-  },
   center: {
     textAlign: "center"
   },
@@ -24,12 +19,13 @@ const styles = theme => ({
     marginRight: "auto"
   },
   bigAvatar: {
-    width: 60,
-    height: 60
+    width: 40,
+    height: 40
   },
   table: {
     width: "100%",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: "-10px"
   },
   team: {
     fontWeight: "bold",
@@ -43,7 +39,7 @@ const styles = theme => ({
   }
 });
 
-class QuestionsPre extends React.Component {
+class Questions extends React.Component {
   state = {
     hideIntro: 1
   };
@@ -54,11 +50,8 @@ class QuestionsPre extends React.Component {
     return (
       <div>
         <Section>
-          <Title title="Quiz Challenge" />
-        </Section>
-        <Section>
           <Grid container className={classes.center} justify="center" xs={12}>
-            <Grid xs={5}>
+            <Grid xs={4}>
               <Avatar
                 alt="Adelle Charles"
                 src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
@@ -67,12 +60,20 @@ class QuestionsPre extends React.Component {
               <p>
                 MAK ATTACK<br />
                 <span className={classes.team}>TEAM XYZ</span>
+                <br />
+                <br />
+                <span>points: 30</span>
               </p>
             </Grid>
-            <Grid xs={2}>
-              <h2>VS</h2>
+            <Grid xs={4}>
+              <br />
+              <br />
+              <h2>
+                30<br />
+                <span className={classes.seconds}>seconds</span>
+              </h2>
             </Grid>
-            <Grid xs={5}>
+            <Grid xs={4}>
               <Avatar
                 alt="Adelle Charles"
                 src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
@@ -81,28 +82,31 @@ class QuestionsPre extends React.Component {
               <p>
                 MAK ATTACK<br />
                 <span className={classes.team}>TEAM XYZ</span>
+                <br />
+                <br />
+                <span>points: 50</span>
               </p>
             </Grid>
           </Grid>
         </Section>
-        <Section>
-          <h1 className={classes.table}>
-            50<br />
-            <span className={classes.seconds}>seconds to start</span>
-          </h1>
-          <p className={classes.table}>
-            Answer the following questions as fast as you can to get more points
-            for your team
-          </p>
+        <Section className={classes.backGreen}>
+          <h3 className={classes.table}>
+            Who won in the last World Cup when the final match was with Spain vs
+            Ireland?
+          </h3>
+          <Button fullWidth>Brazil</Button>
+          <Button fullWidth>Argentina</Button>
+          <Button fullWidth>France</Button>
+          <Button fullWidth>Austalia</Button>
         </Section>
       </div>
     );
   }
 }
 
-QuestionsPre.propTypes = {
+Questions.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(QuestionsPre);
+export default withStyles(styles, { withTheme: true })(Questions);
