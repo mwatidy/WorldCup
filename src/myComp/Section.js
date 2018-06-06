@@ -19,8 +19,8 @@ class Section extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Grid container xs={12}>
-          <Grid container className={classes.grid}>
+        <Grid container>
+          <Grid item className={classes.grid} xs={12}>
             {this.props.children}
           </Grid>
         </Grid>

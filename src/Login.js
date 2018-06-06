@@ -6,17 +6,22 @@ import { withStyles } from "@material-ui/core/styles";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
+import Section from "./myComp/Section";
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    justify: "center"
+    justify: "center",
+    marginBottom: "100px;"
   },
   leftIcon: {
     marginRight: theme.spacing.unit
   },
   root: {
     flexGrow: 1
+  },
+  main: {
+    minHeight: "500px"
   }
 });
 
@@ -24,16 +29,19 @@ function IconLabelButtons(props) {
   const { classes } = props;
   return (
     <div className={classes.container}>
-      <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <Grid container justify="center" direction="row" alignItems="center">
-            <Button className={classes.button} variant="raised" color="primary">
-              <AccountCircle className={classes.leftIcon} />
-              Login with Facebook
-            </Button>
-          </Grid>
+      <Section>
+        <Grid
+          container
+          justify="center"
+          alignItems="flex-end"
+          className={classes.main}
+        >
+          <Button className={classes.button} color="primary">
+            <AccountCircle className={classes.leftIcon} />
+            Login with Facebook
+          </Button>
         </Grid>
-      </Grid>
+      </Section>
     </div>
   );
 }

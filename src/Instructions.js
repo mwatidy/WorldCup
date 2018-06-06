@@ -16,6 +16,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Alarm from "@material-ui/icons/Alarm";
 import Group from "@material-ui/icons/Group";
 import Notifications from "@material-ui/icons/Notifications";
+import Title from "./myComp/Title";
+import Section from "./myComp/Section";
 
 const styles = theme => ({
   root: {
@@ -73,8 +75,8 @@ const tutorialSteps = [
 
 class Instructions extends React.Component {
   state = {
-    hideIntro: 0,
-    hideHow: 1,
+    hideIntro: 1,
+    hideHow: 0,
     hideRules: 1,
     activeStep: 0
   };
@@ -128,158 +130,127 @@ class Instructions extends React.Component {
           <li onClick={() => this.showSection("rules")}>Rules</li>
         </ul>
         <hr />
-        <Grid container xs={12}>
-          {!this.state.hideIntro && (
-            <Grid container direction="row" className={classes.grid}>
-              <Grid item>
-                <Typography
-                  variant="headline"
-                  component="h3"
-                  className={classes.introTitle}
-                >
-                  Welcome to FC Challenge
-                </Typography>
-                <Typography
-                  className={classes.introTitle}
-                  variant="paragraph"
-                  component="p"
-                >
-                  You and every member of your team will have to answer ten
-                  questions about football. The faster you answer these
-                  questions correctly, the more points you get for yourself and
-                  your team. Your team will challenge other teams to get more
-                  points. There will be four rounds where each round takes one
-                  week to complete.
-                </Typography>
-                <Button
-                  onClick={() => this.showSection("how")}
-                  className={classes.button}
-                  color="primary"
-                >
-                  how to play
-                </Button>
-              </Grid>
+        {!this.state.hideIntro && (
+          <Section>
+            <Title
+              removeMargin
+              title="Welcome to FC Challenge"
+              description="You and every member of your team will have to answer ten questions about football. The faster you answer these questions correctly, the more points you get for yourself and your team. Your team will challenge other teams to get more points. There will be four rounds where each round takes one week to complete."
+            />
+            <Grid item>
+              <Button
+                onClick={() => this.showSection("how")}
+                className={classes.button}
+                color="primary"
+              >
+                {" "}
+                how to play
+              </Button>
             </Grid>
-          )}
-          {!this.state.hideHow && (
-            <Grid container className={classes.grid}>
-              <Grid item>
-                <Typography
-                  variant="headline"
-                  component="h3"
-                  className={classes.introTitle}
-                >
-                  How to play
-                </Typography>
-                <div className={classes.root}>
-                  <Paper square elevation={0} className={classes.header}>
-                    <Typography>{tutorialSteps[activeStep].label}</Typography>
-                  </Paper>
-                  <SwipeableViews
-                    axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                    index={this.state.activeStep}
-                    onChangeIndex={this.handleStepChange}
-                    enableMouseEvents
-                  >
-                    {tutorialSteps.map(step => (
-                      <img
-                        key={step.label}
-                        className={classes.img}
-                        src={step.imgPath}
-                        alt={step.label}
-                      />
-                    ))}
-                  </SwipeableViews>
-                  <MobileStepper
-                    steps={maxSteps}
-                    position="static"
-                    activeStep={activeStep}
-                    className={classes.mobileStepper}
-                    nextButton={
-                      <Button
-                        size="small"
-                        onClick={this.handleNext}
-                        disabled={activeStep === maxSteps - 1}
-                      >
-                        Next
-                        {theme.direction === "rtl" ? (
-                          <KeyboardArrowLeft />
-                        ) : (
-                          <KeyboardArrowRight />
-                        )}
-                      </Button>
-                    }
-                    backButton={
-                      <Button
-                        size="small"
-                        onClick={this.handleBack}
-                        disabled={activeStep === 0}
-                      >
-                        {theme.direction === "rtl" ? (
-                          <KeyboardArrowRight />
-                        ) : (
-                          <KeyboardArrowLeft />
-                        )}
-                        Back
-                      </Button>
-                    }
+          </Section>
+        )}
+        {!this.state.hideHow && (
+          <Section>
+            <Title title="How to play" removeMargin />
+            <div className={classes.root}>
+              <Paper square elevation={0} className={classes.header}>
+                <Typography>{tutorialSteps[activeStep].label}</Typography>
+              </Paper>
+              <SwipeableViews
+                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                index={this.state.activeStep}
+                onChangeIndex={this.handleStepChange}
+                enableMouseEvents
+              >
+                {tutorialSteps.map(step => (
+                  <img
+                    key={step.label}
+                    className={classes.img}
+                    src={step.imgPath}
+                    alt={step.label}
                   />
-                </div>
-              </Grid>
-            </Grid>
-          )}
-          {!this.state.hideRules && (
-            <Grid container className={classes.grid}>
-              <Grid item>
-                <Typography
-                  variant="headline"
-                  component="h3"
-                  className={classes.introTitle}
-                >
-                  Tips and Rules
-                </Typography>
-                <div className={classes.root2}>
-                  <List>
-                    <ListItem>
-                      <Avatar>
-                        <Alarm />
-                      </Avatar>
-                      <ListItemText
-                        primary="Time matters"
-                        secondary="Try to answer the questions as fast as you can to get more points."
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <Avatar>
-                        <Group />
-                      </Avatar>
-                      <ListItemText
-                        primary="Choose the best"
-                        secondary="Make sure your team mates are big fans of football"
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <Avatar>
-                        <Notifications />
-                      </Avatar>
-                      <ListItemText
-                        primary="Notifications"
-                        secondary="You will be notified on your messenger with the updates"
-                      />
-                    </ListItem>
-                  </List>
+                ))}
+              </SwipeableViews>
+              <MobileStepper
+                steps={maxSteps}
+                position="static"
+                activeStep={activeStep}
+                className={classes.mobileStepper}
+                nextButton={
                   <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
+                    size="small"
+                    onClick={this.handleNext}
+                    disabled={activeStep === maxSteps - 1}
                   >
-                    Create Team
+                    Next
+                    {theme.direction === "rtl" ? (
+                      <KeyboardArrowLeft />
+                    ) : (
+                      <KeyboardArrowRight />
+                    )}
                   </Button>
-                </div>
-              </Grid>
-            </Grid>
-          )}
-        </Grid>
+                }
+                backButton={
+                  <Button
+                    size="small"
+                    onClick={this.handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    {theme.direction === "rtl" ? (
+                      <KeyboardArrowRight />
+                    ) : (
+                      <KeyboardArrowLeft />
+                    )}
+                    Back
+                  </Button>
+                }
+              />
+            </div>
+          </Section>
+        )}
+        {!this.state.hideRules && (
+          <Section>
+            <Title title="Tips and Rules" removeMargin />
+            <div className={classes.root2}>
+              <List>
+                <ListItem>
+                  <Avatar>
+                    <Alarm />
+                  </Avatar>
+                  <ListItemText
+                    primary="Time matters"
+                    secondary="Answer the questions as fast as you can to get more points."
+                  />
+                </ListItem>
+                <ListItem>
+                  <Avatar>
+                    <Group />
+                  </Avatar>
+                  <ListItemText
+                    primary="Choose the best"
+                    secondary="Make sure your team mates are big fans of football"
+                  />
+                </ListItem>
+                <ListItem>
+                  <Avatar>
+                    <Notifications />
+                  </Avatar>
+                  <ListItemText
+                    primary="Notifications"
+                    secondary="You will be notified on your messenger with the updates"
+                  />
+                </ListItem>
+              </List>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Create Team
+              </Button>
+            </div>
+          </Section>
+        )}
       </div>
     );
   }
