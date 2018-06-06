@@ -9,6 +9,7 @@ import Team from "./Team";
 import Dashboard from "./Dashboard";
 import QuestionsPre from "./QuestionsPre";
 import Questions from "./Questions";
+import QuestionsPost from "./QuestionsPost";
 import Title from "./myComp/Title";
 
 const styles = {
@@ -48,6 +49,9 @@ class App extends React.Component {
             <li>
               <Link to={"/Questions"}>Questions</Link>
             </li>
+            <li>
+              <Link to={"/QuestionsPost"}>QuestionsPost</Link>
+            </li>
           </ul>
           <hr />
 
@@ -59,6 +63,7 @@ class App extends React.Component {
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/QuestionsPre" component={QuestionsPre} />
             <Route exact path="/Questions" component={Questions} />
+            <Route exact path="/QuestionsPost" component={QuestionsPost} />
           </Switch>
         </div>
       </Router>

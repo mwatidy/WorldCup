@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
 
@@ -24,8 +25,8 @@ const styles = theme => ({
     marginRight: "auto"
   },
   bigAvatar: {
-    width: 60,
-    height: 60
+    width: 100,
+    height: 100
   },
   table: {
     width: "100%",
@@ -40,10 +41,16 @@ const styles = theme => ({
     fontWeight: "normal",
     fontSize: "0.5em",
     display: "block"
+  },
+  removeMargin: {
+    marginTop: "-20px"
+  },
+  addMargin: {
+    marginTop: "20px"
   }
 });
 
-class QuestionsPre extends React.Component {
+class QuestionsPost extends React.Component {
   state = {
     hideIntro: 1
   };
@@ -53,26 +60,21 @@ class QuestionsPre extends React.Component {
 
     return (
       <div>
+        <Section />
         <Section>
-          <h1 className={classes.table}>Quiz Challenge</h1>
-        </Section>
-        <Section>
-          <Grid container className={classes.center} justify="center" xs={12}>
-            <Grid xs={5}>
-              <Avatar
-                alt="Adelle Charles"
-                src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
-                className={classNames(classes.avatar, classes.bigAvatar)}
-              />
-              <p>
-                MAK ATTACK<br />
-                <span className={classes.team}>TEAM XYZ</span>
-              </p>
-            </Grid>
-            <Grid xs={2}>
-              <h2>VS</h2>
-            </Grid>
-            <Grid xs={5}>
+          <Grid xs={12} item>
+            <h1 className={classes.table}>WINNER!</h1>
+            <p className={classNames(classes.table, classes.removeMargin)}>
+              Congratulations!
+            </p>
+          </Grid>
+          <Grid
+            container
+            className={classNames(classes.center, classes.addMargin)}
+            justify="center"
+            xs={12}
+          >
+            <Grid xs={12}>
               <Avatar
                 alt="Adelle Charles"
                 src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
@@ -84,25 +86,29 @@ class QuestionsPre extends React.Component {
               </p>
             </Grid>
           </Grid>
-        </Section>
-        <Section>
-          <h1 className={classes.table}>
-            10<br />
-            <span className={classes.seconds}>seconds to start</span>
-          </h1>
-          <p className={classes.table}>
-            Answer the following questions as fast as you can to get more points
-            for your team
-          </p>
+          <Grid
+            item
+            className={classNames(classes.center, classes.addMargin)}
+            xs={12}
+          >
+            <h1>
+              +200<br />
+              <span className={classes.seconds}>points</span>
+            </h1>
+            <p>Your did better than 59% of players</p>
+            <Button variant="contained" className={classes.addMargin}>
+              Continue
+            </Button>
+          </Grid>
         </Section>
       </div>
     );
   }
 }
 
-QuestionsPre.propTypes = {
+QuestionsPost.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(QuestionsPre);
+export default withStyles(styles, { withTheme: true })(QuestionsPost);

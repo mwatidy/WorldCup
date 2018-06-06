@@ -73,9 +73,9 @@ const tutorialSteps = [
 
 class Instructions extends React.Component {
   state = {
-    hideIntro: 1,
+    hideIntro: 0,
     hideHow: 1,
-    hideRules: 0,
+    hideRules: 1,
     activeStep: 0
   };
 
