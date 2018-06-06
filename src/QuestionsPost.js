@@ -95,7 +95,9 @@ class QuestionsPost extends React.Component {
               +200<br />
               <span className={classes.seconds}>points</span>
             </h1>
-            <p>Your did better than 59% of players</p>
+            <p>
+              Your did better than<br />59% of players
+            </p>
             <Button variant="contained" className={classes.addMargin}>
               Continue
             </Button>

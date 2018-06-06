@@ -7,6 +7,8 @@ import Avatar from "@material-ui/core/Avatar";
 import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Section from "./myComp/Section";
+import Title from "./myComp/Title";
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -19,7 +21,7 @@ const styles = theme => ({
     height: 60
   },
   button: {
-    margin: theme.spacing.unit + 10
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -27,27 +29,27 @@ function PaperSheet(props) {
   const { classes } = props;
   return (
     <div>
-      <Typography variant="headline" component="h1">
-        Welcome to the WC APP
-      </Typography>
-      <Paper className={classes.root} elevation={4}>
-        <Grid container wrap="nowrap" spacing={16}>
-          <Grid item>
-            <Avatar className={classNames(classes.avatar, classes.bigAvatar)}>
-              A
-            </Avatar>
+      <Section>
+        <Title
+          title="Welcome to WC APP"
+          description="Your friend invited you to join his team for the world cup challenge. If S/he choose you then this means that S/he probably trusts in your football knowledge more than his other friends. You will be guided on how to take part of this international challenge after you login with your Facebook account."
+        />
+        <Paper className={classes.root} elevation={1}>
+          <Grid container spacing={16}>
+            <Grid item>
+              <Avatar className={classNames(classes.avatar)}>A</Avatar>
+            </Grid>
+            <Grid item>
+              <Typography variant="headline" component="h3">
+                Mark Zuckerberg
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs zeroMinWidth>
-            <Typography variant="headline" component="h3">
-              Mak invited you to join BOMBASTIC
-            </Typography>
-            <Typography component="p">
-              You will be asked to answer a series of questions and will
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Button className={classes.button}>Login to Start</Button>
+        </Paper>
+        <Button fullWidth className={classes.button}>
+          Login to join his team
+        </Button>
+      </Section>
     </div>
   );
 }

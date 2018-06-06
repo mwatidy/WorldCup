@@ -14,6 +14,10 @@ const styles = theme => ({
     justify: "center",
     marginBottom: "100px;"
   },
+  headline: {
+    width: "100%",
+    textAlign: "center"
+  },
   leftIcon: {
     marginRight: theme.spacing.unit
   },
@@ -30,6 +34,7 @@ function IconLabelButtons(props) {
   return (
     <div className={classes.container}>
       <Section>
+        <h2 className={classes.headline}>World Cup Challenge</h2>
         <Grid
           container
           justify="center"

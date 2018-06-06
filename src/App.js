@@ -14,7 +14,12 @@ import Title from "./myComp/Title";
 
 const styles = {
   main: {
-    fontFamily: "sans-serif"
+    fontFamily: "sans-serif",
+    margin: "0px",
+    position: "absolute",
+    left: 0,
+    top: 0
+    //backgroundColor: "green"
   },
   ul: {
     listStyleType: "none"
