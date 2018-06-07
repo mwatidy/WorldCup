@@ -38,6 +38,43 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+	<script>
+		window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '362073350865440',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v3.0'
+      });
+
+      FB.AppEvents.logPageView();   
+
+      FB.getLoginStatus(function(response) {
+        if(response.status == "connected") {
+          console.log("Welcome "+ response.authResponse.userID);   
+          window.logged = true;
+        } else {
+          window.logged = false;
+          console.log("Need to login");
+        }
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=210151409797846&autoLogAppEvents=1';
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+    window.login = function () {
+		 FB.login(function (response) { console.log("Successfully logged in "+response); });
+    }
+	 
+	</script>
+
 </body>
 
 </html>

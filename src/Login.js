@@ -29,30 +29,32 @@ const styles = theme => ({
   }
 });
 
-function IconLabelButtons(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.container}>
-      <Section>
-        <h2 className={classes.headline}>World Cup Challenge</h2>
-        <Grid
-          container
-          justify="center"
-          alignItems="flex-end"
-          className={classes.main}
-        >
-          <Button className={classes.button} color="primary">
-            <AccountCircle className={classes.leftIcon} />
-            Login with Facebook
-          </Button>
-        </Grid>
-      </Section>
-    </div>
-  );
-}
+class Login extends React.Component {
+  render() {
+    const { classes } = this.props;
 
-IconLabelButtons.propTypes = {
+    return (
+      <div className={classes.container}>
+        <Section>
+          <h2 className={classes.headline}>World Cup Challenge</h2>
+          <Grid
+            container
+            justify="center"
+            alignItems="flex-end"
+            className={classes.main}
+          >
+            <Button className={classes.button} color="primary">
+              <AccountCircle className={classes.leftIcon} />
+              Login with Facebook
+            </Button>
+          </Grid>
+        </Section>
+      </div>
+    );
+  }
+}
+Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(IconLabelButtons);
+export default withStyles(styles)(Login);

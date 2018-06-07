@@ -10,7 +10,10 @@ import Dashboard from "./Dashboard";
 import QuestionsPre from "./QuestionsPre";
 import Questions from "./Questions";
 import QuestionsPost from "./QuestionsPost";
+import { Helmet } from "react-helmet";
 import Title from "./myComp/Title";
+
+import FacebookLogin from "react-facebook-login";
 
 const styles = {
   main: {
@@ -27,10 +30,28 @@ const styles = {
 };
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    if (window.logged) {
+      this.state = { logged: true };
+    } else {
+      this.state = { logged: false };
+      window.login;
+    }
+  }
+  responseFacebook(response) {
+    console.log(response);
+  }
+
   render() {
     return (
       <Router>
         <div style={styles.main}>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>THIS IS MY APP</title>
+            <link rel="canonical" href="http://mysite.com/example" />
+          </Helmet>
           <h2>These are the main app components</h2>
           <ul style={styles.ul}>
             <li>
@@ -59,7 +80,9 @@ class App extends React.Component {
             </li>
           </ul>
           <hr />
+          <p>{this.state.logged ? "LOGGED IN" : "NOT LOGGED"}</p>
 
+          <div id="status" />
           <Switch>
             <Route exact path="/Instructions" component={Instructions} />
             <Route exact path="/Login" component={Login} />
