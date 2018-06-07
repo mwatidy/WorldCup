@@ -15,37 +15,6 @@ const game = (state = initialState, action) => {
       });
 
     case "LOGIN":
-      console.log("hey there");
-      (function(d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-          return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src =
-          "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=210151409797846&autoLogAppEvents=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
-
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId: "362073350865440",
-          cookie: true,
-          xfbml: true,
-          version: "v3.0"
-        });
-
-        FB.AppEvents.logPageView();
-        FB.getLoginStatus(function(response) {
-          if (response.status == "connected") {
-            console.log("Welcome " + response.authResponse.userID);
-          } else {
-            console.log("user not logged in");
-          }
-        });
-      };
 
     /*
     return Object.assign({}, state, {
