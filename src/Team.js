@@ -32,7 +32,7 @@ const styles = theme => ({
 
 class Team extends React.Component {
   state = {
-    name: "",
+    name: "MARK",
     friends: [
       {
         name: "Tommy Wiseau",
@@ -106,10 +106,10 @@ class Team extends React.Component {
                 this.state.friends.map((friend, value) => (
                   <ListItem
                     key={value}
-                    button={friend.approved ? "" : "1"}
+                    button={friend.approved ? null : "1"}
                     //disabled={friend.inTeam ? "approved" : ""}
                     className={classes.listItem}
-                    onClick={friend.approved ? "" : this.selectToggle(value)}
+                    onClick={friend.approved ? null : this.selectToggle(value)}
                   >
                     <Avatar alt="Remy Sharp" src={friend.pic} />
                     <ListItemText

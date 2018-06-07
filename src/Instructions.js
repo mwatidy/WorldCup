@@ -18,6 +18,7 @@ import Group from "@material-ui/icons/Group";
 import Notifications from "@material-ui/icons/Notifications";
 import Title from "./myComp/Title";
 import Section from "./myComp/Section";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -68,6 +69,10 @@ const tutorialSteps = [
     imgPath: "img/steps2.png"
   },
   {
+    label: "3. Wait for your team members to login",
+    imgPath: "img/steps2.png"
+  },
+  {
     label: "3. Start answering the questions",
     imgPath: "img/steps3.png"
   }
@@ -85,7 +90,8 @@ class Instructions extends React.Component {
     this.setState({
       hideHow: 1,
       hideIntro: 1,
-      hideRules: 1
+      hideRules: 1,
+      showTips: 0
     });
 
     switch (name) {
@@ -102,6 +108,9 @@ class Instructions extends React.Component {
   };
 
   handleNext = () => {
+    if (this.state.activeStep == tutorialSteps.length - 2)
+      this.setState(prevState => ({ showTips: 1 }));
+
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1
     }));
@@ -154,7 +163,9 @@ class Instructions extends React.Component {
             <Title title="How to play" removeMargin />
             <div className={classes.root}>
               <Paper square elevation={0} className={classes.header}>
-                <Typography>{tutorialSteps[activeStep].label}</Typography>
+                <Typography paragraph>
+                  {tutorialSteps[activeStep].label}
+                </Typography>
               </Paper>
               <SwipeableViews
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -205,6 +216,13 @@ class Instructions extends React.Component {
                   </Button>
                 }
               />
+              {this.state.showTips ? (
+                <Button onClick={() => this.showSection("rules")} fullWidth>
+                  Show Rules
+                </Button>
+              ) : (
+                ""
+              )}
             </div>
           </Section>
         )}
@@ -241,13 +259,12 @@ class Instructions extends React.Component {
                   />
                 </ListItem>
               </List>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                Create Team
-              </Button>
+
+              <Link to="/Team">
+                <Button color="primary" className={classes.button}>
+                  Create Team
+                </Button>
+              </Link>
             </div>
           </Section>
         )}

@@ -1,6 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
 import Instructions from "./Instructions";
 import Login from "./Login";
@@ -13,7 +19,11 @@ import QuestionsPost from "./QuestionsPost";
 import { Helmet } from "react-helmet";
 import Title from "./myComp/Title";
 
-import FacebookLogin from "react-facebook-login";
+import { createStore } from "redux";
+import game from "./Reducers";
+import { getLeader, logIn } from "./Actions";
+
+const store = createStore(game);
 
 const styles = {
   main: {
@@ -30,19 +40,39 @@ const styles = {
 };
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    if (window.logged) {
-      this.state = { logged: true };
-    } else {
-      this.state = { logged: false };
-      window.login;
+  state = {
+    logged: true,
+    showInstruction: true,
+    user: {
+      fbId: "",
+      name: "",
+      score: "",
+      role: ""
+    },
+    team: {
+      name: "mak",
+      members: [
+        {
+          name: "ahmd",
+          pic:
+            "https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg",
+          score: 20
+        },
+        {
+          name: "ahmed",
+          pic:
+            "https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg",
+          score: 20
+        }
+      ]
     }
-  }
-  responseFacebook(response) {
-    console.log(response);
-  }
+  };
 
+  componentDidMount() {
+    //var name = store.getState().name;
+    //console.log(name);
+    store.dispatch(logIn());
+  }
   render() {
     return (
       <Router>
@@ -80,8 +110,7 @@ class App extends React.Component {
             </li>
           </ul>
           <hr />
-          <p>{this.state.logged ? "LOGGED IN" : "NOT LOGGED"}</p>
-
+          <a onClick={() => store.dispatch(getLeader())}>TELL ME</a>
           <div id="status" />
           <Switch>
             <Route exact path="/Instructions" component={Instructions} />

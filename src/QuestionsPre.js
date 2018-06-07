@@ -66,7 +66,7 @@ class QuestionsPre extends React.Component {
               />
               <p>
                 MAK ATTACK<br />
-                <span className={classes.team}>TEAM XYZ</span>
+                <span className={classes.team}>TEAM FLA</span>
               </p>
             </Grid>
             <Grid xs={2}>

@@ -1,0 +1,260 @@
+~~ INSTRUCTIONS ~~
+//No Actions
+STATE =>  hasTeam: boolean
+
+
+
+
+
+
+
+~~ LOGIN ~~
+STATE => loggedIn: boolean
+ACTIONS => {
+  type: "LOG_IN",
+}
+
+
+
+
+
+
+
+
+
+ ~~ INVITED ~~
+    STATE => {
+        loggedIn: true, 
+        avatar: "https://...",
+        leaderName:"Tommy"
+      }
+  ACTIONS => {
+    type: "GET_LEADER",
+      payload: {
+        referral: "h23jh2"
+    }
+  }
+
+  export const getLeader = (referral) => {
+  return {
+    name: LOG_IN’,
+    avatar: "",
+  }
+}
+
+
+
+
+
+
+
+  ~~ TEAM ~~
+    STATE => {
+      loggedIn: true,
+      teamName: "",
+      isLeader: "",
+      refLink: "",
+      members: [
+        {
+          name: "Tommy",
+          avatar: "https://...",
+          approved: true
+        },
+      ]
+    }
+
+  ACTIONS => [{
+    type: "APPROVE_MEMBERS",
+      payload: {
+        fbID: ["234234","23423423"]
+    }
+  },
+  {
+    type: "INVITE_MEMBERS",
+    payload: {
+      refLink: "as32a"
+    }    
+  }]
+
+
+
+
+
+
+
+
+  ~~ DASHBOARD ~~
+  STATE => {
+    loggedIn: true,
+    teamCreated: true,
+    answeredQuestions: false,
+    avatar: "https://...",
+    leaderName:"Tommy",
+    teamMembers: [
+      {
+        name: "TOmmy",
+        score: 200,
+      },
+    ],
+    topTeams: [
+      {
+        teamName: "BLADADA",
+        score: 200,
+      },
+    otherFriends: [
+        {
+          name: "BLADADA",
+          team: "CDFA",
+          score: 200,
+        },
+    ],
+    announcements: [
+      {
+        title: "asdad",
+        content: "dadsakdjh asdjkha skdjh askdja"
+        action: "BOMBASTIC"
+      }
+    ]
+  }
+  
+  ACTIONS => [
+    {
+      type: "GET_FRIENDS",
+      payload: {
+          fbId: "1233123"
+    },
+    {
+      type: "GET_ANNOUNCEMENTS",
+      payload: {
+        fbId: "1233123"
+    },
+    {
+      type: "GET_TOP_TEAMS",
+      payload: {
+        fbId: "1233123"
+      }
+    }
+    {
+      type: "GET_TEAM_SCORES",
+      payload: {
+        referral: "asd31"
+      }
+
+  ]
+
+
+
+
+
+
+  ~~ QUESTIONS PRE ~~
+  STATE => {
+    loggedIn: true,
+    hasScore: false,
+    counter: 10,
+    challenge: [
+      {
+        id: "asd3a2",
+        name: "MAK ATTACK",
+        team: "TEAM XYZ",
+        avatar: "https://..."
+      },
+      {
+        id: "asd3a2",
+        name: "MAK ATTACK",
+        team: "TEAM XYZ",
+        avatar: "https://..."
+      }
+    ],
+
+  }
+
+  ACTIONS => {
+    type: "GET_CHALLENGE",
+  }
+
+
+
+
+
+
+
+~~ QUESTIONS ~~
+STATE => {
+  loggedIn: true,
+  hasScore: false,
+  user: {
+          id: "asd3a2",
+          name: "MAK ATTACK",
+          team: "TEAM XYZ",
+          avatar: "https://..."
+          score: [10, 30, 20...]
+      }
+   opponent: {
+        id: "asd3a2",
+        name: "MAK ATTACK",
+        team: "TEAM XYZ",
+        avatar: "https://..."
+        score: [10, 30, 20...]
+      },
+  questions: [
+    {
+      question: "what is mobile number?",
+      answers: ["Answer 1", "Answer 2", "Answer 3","Answer 4"],
+    }...
+  ]
+}
+
+ACTIONS => [{
+    type: "ADD_POINTS",
+    payload: {
+      userID: ""
+    }
+  },
+  {
+    type: "NEXT_QUESTION",
+    payload: {
+      questionIndex: 0
+    }
+  }]
+
+
+
+
+
+
+
+
+
+
+  ~~ QUESTIONS POST ~~
+  STATE => {
+    loggedIn: true,
+    hasScore: true,
+    isWinner: true,
+    finalScore: 900,
+    user: {
+            id: "asd3a2",
+            name: "MAK ATTACK",
+            team: "TEAM XYZ",
+            avatar: "https://..."
+            score: [10, 30, 20...]
+          }
+    }
+
+  ACTIONS => [{
+    type: "CHECK_WINNER",
+    payload: {
+      user1Score: 200,
+      user2Score: 300,
+    }
+  },
+  {
+    type: "UPDATE_FINAL_SCORE",
+    payload: {
+      userID: "12d3a",
+      finalScore: 900,
+      isWinner: true
+    }
+  }]
+
