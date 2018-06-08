@@ -71,32 +71,8 @@ class App extends React.Component {
   componentDidMount() {
     //var name = store.getState().name;
     //console.log(name);
-    //store.dispatch(logIn());
     //onClick={() => store.dispatch(getLeader())}
-    console.log("component mounted");
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: "362073350865440",
-        cookie: true,
-        xfbml: true,
-        version: "v3.0"
-      });
-
-      FB.getLoginStatus(function(response) {
-        console.log(response);
-      });
-    }.bind(this);
-
-    // Load the SDK asynchronously
-    (function(d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
+    //console.log("component mounted");
   }
   render() {
     return (

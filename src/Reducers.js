@@ -1,9 +1,29 @@
 import { getLeader } from "./Actions";
 import axios from "axios";
 
+/*
+
+hasTeam
+LoggedIn
+avatar
+leaderName
+referral
+teamName
+isLeader
+team
+teamMembers => name, avatar, approved, score
+answeredQuestions
+topTeams => []
+otherFriends
+score
+challenge => { }
+isWinner => Scores EveryQuestion
+
+ */
+
 const initialState = {
-  name: "hello",
-  loggedIn: false
+  name: "",
+  loggedIn: "TOKEN_NUMBER"
 };
 
 const game = (state = initialState, action) => {
@@ -15,7 +35,6 @@ const game = (state = initialState, action) => {
       });
 
     case "LOGIN":
-
     /*
     return Object.assign({}, state, {
           name: res

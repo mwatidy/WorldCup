@@ -1,3 +1,9 @@
+export const haveCookie = () => {
+  return {
+    type: "HAVE_COOKIE"
+  };
+};
+
 export const logIn = () => {
   return {
     type: "LOGIN"
