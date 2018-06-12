@@ -17,12 +17,16 @@ import QuestionsPre from "./QuestionsPre";
 import Questions from "./Questions";
 import QuestionsPost from "./QuestionsPost";
 import { Helmet } from "react-helmet";
+
 import Title from "./myComp/Title";
+import CookieCheck from "./myComp/Cookie";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import game from "./Reducers";
 import { getLeader, logIn } from "./Actions";
+
+import { Cookies, withCookies } from "react-cookie";
 
 const store = createStore(game);
 
@@ -42,6 +46,9 @@ const styles = {
 };
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     logged: true,
     showInstruction: true,

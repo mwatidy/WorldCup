@@ -17,6 +17,7 @@ import game from "./Reducers";
 import { getLeader } from "./Actions";
 
 import axios from "axios";
+import { withCookies, Cookies } from "react-cookie";
 
 const store = createStore(game);
 
@@ -45,8 +46,10 @@ class Invited extends React.Component {
   constructor(props) {
     super(props);
     //getLeader(props.match.params.referrer);
-
+    const { cookies } = this.props;
     this.myGetLeader(this.props.match.params.referrer);
+
+    console.log(cookies.get("auth") || null);
   }
 
   myGetLeader = referrer => {
@@ -68,8 +71,7 @@ class Invited extends React.Component {
           this.setState({ redirect: true });
           console.log("wrong reffer and redirecting back");
         }
-      )
-      .catch(console.log("wrong user"));
+      );
   };
 
   //  componentMounted() {
@@ -81,7 +83,7 @@ class Invited extends React.Component {
   //  }
   //SAMPLE URL /Invited/80d5d
   render() {
-    const { classes } = this.props;
+    const { classes, cookies } = this.props;
 
     return (
       <div>
@@ -140,6 +142,6 @@ const mapDispatchToProps = dispatch => {
 //  connect(mapStateToProps, mapDispatchToProps)(Invited)
 //);
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(Invited)
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Invited))
 );

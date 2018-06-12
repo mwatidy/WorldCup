@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
 
+import CookieCheck from "./myComp/Cookie";
+
 const styles = theme => ({
   img: {
     height: 500,
@@ -60,6 +62,7 @@ class QuestionsPost extends React.Component {
 
     return (
       <Section>
+        <CookieCheck />
         <Grid xs={12}>
           <h1 className={classes.table}>WINNER!</h1>
           <p className={classNames(classes.table, classes.removeMargin)}>

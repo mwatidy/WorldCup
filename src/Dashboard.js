@@ -10,6 +10,9 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
+
+import CookieCheck from "./myComp/Cookie";
+
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -99,6 +102,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className={classes.container}>
+        <CookieCheck />
         <Section>
           <Title
             title="Dashboard"
