@@ -10,9 +10,13 @@ export const logIn = () => {
   };
 };
 
-export const getLeader = () => {
+export const getLeader = (name, avatar) => {
   return {
-    type: "GET_LEADER"
+    type: "GET_LEADER",
+    payload: {
+      name,
+      avatar
+    }
   };
 };
 

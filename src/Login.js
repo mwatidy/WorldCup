@@ -76,7 +76,7 @@ class Login extends React.Component {
           callback(false);
         }
       });
-    }.bind(this);
+    };
   };
 
   login = () => {
@@ -111,13 +111,8 @@ class Login extends React.Component {
     return (
       <div className={classes.container}>
         <Section>
-          <h2 className={classes.headline}>World Cup Challenge</h2>
-          <Grid
-            container
-            justify="center"
-            alignItems="flex-end"
-            className={classes.main}
-          >
+          <Grid container justify="center" className={classes.main}>
+            <h2 className={classes.headline}>World Cup Challenge</h2>
             {this.state.myButton ? (
               <Button
                 className={classes.button}
@@ -128,7 +123,7 @@ class Login extends React.Component {
                 Login With Facebook
               </Button>
             ) : (
-              "checking current status..."
+              <p>checking current status...</p>
             )}
           </Grid>
         </Section>

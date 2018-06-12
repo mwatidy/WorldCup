@@ -19,6 +19,7 @@ import QuestionsPost from "./QuestionsPost";
 import { Helmet } from "react-helmet";
 import Title from "./myComp/Title";
 
+import { Provider } from "react-redux";
 import { createStore } from "redux";
 import game from "./Reducers";
 import { getLeader, logIn } from "./Actions";
@@ -31,7 +32,8 @@ const styles = {
     margin: "0px",
     position: "absolute",
     left: 0,
-    top: 0
+    top: 0,
+    minWidth: 350
     //backgroundColor: "green"
   },
   ul: {
@@ -68,12 +70,13 @@ class App extends React.Component {
     }
   };
 
-  componentDidMount() {
-    //var name = store.getState().name;
-    //console.log(name);
-    //onClick={() => store.dispatch(getLeader())}
-    //console.log("component mounted");
-  }
+  //componentDidMount() {
+  //var name = store.getState().name;
+  //console.log(name);
+  //onClick={() => }
+  //console.log("component mounted");
+  //}
+
   render() {
     return (
       <Router>
@@ -83,7 +86,7 @@ class App extends React.Component {
             <title>THIS IS MY APP</title>
             <link rel="canonical" href="http://mysite.com/example" />
           </Helmet>
-          <h2>These are the main app components</h2>
+          <h2>Pages inside the App</h2>
           <ul style={styles.ul}>
             <li>
               <Link to={"/Instructions"}>Instructions</Link>
@@ -116,7 +119,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/Instructions" component={Instructions} />
             <Route exact path="/Login" component={Login} />
-            <Route exact path="/Invited" component={Invited} />
+            <Route exact path="/Invited/:referrer" component={Invited} />
             <Route exact path="/Team" component={Team} />
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/QuestionsPre" component={QuestionsPre} />

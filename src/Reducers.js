@@ -1,5 +1,4 @@
 import { getLeader } from "./Actions";
-import axios from "axios";
 
 /*
 
@@ -23,18 +22,21 @@ isWinner => Scores EveryQuestion
 
 const initialState = {
   name: "",
-  loggedIn: "TOKEN_NUMBER"
+  loggedIn: "TOKEN_NUMBER",
+  referrerName: "Getting Name .. ",
+  referrerAvatar: "G"
 };
 
 const game = (state = initialState, action) => {
   switch (action.type) {
     case "GET_LEADER":
-      axios.get("https://jsonplaceholder.typicode.com/posts/").then(res => {
-        console.log(res);
-        console.log(state);
-      });
-
+      return {
+        ...state,
+        referrerName: action.payload.name,
+        referrerAvatar: action.payload.avatar
+      };
     case "LOGIN":
+
     /*
     return Object.assign({}, state, {
           name: res

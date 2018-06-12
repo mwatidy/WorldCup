@@ -11,7 +11,14 @@ import Section from "./myComp/Section";
 import Title from "./myComp/Title";
 import { Redirect } from "react-router-dom";
 
+import { connect } from "react-redux";
+import { createStore } from "redux";
+import game from "./Reducers";
+import { getLeader } from "./Actions";
+
 import axios from "axios";
+
+const store = createStore(game);
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -30,17 +37,55 @@ const styles = theme => ({
 
 class Invited extends React.Component {
   state = {
-    name: "",
-    avatar: ""
+    redirect: false,
+    name: "Getting Name...",
+    avatar: "A"
   };
 
-  componentDidMount() {}
+  constructor(props) {
+    super(props);
+    //getLeader(props.match.params.referrer);
 
+    this.myGetLeader(this.props.match.params.referrer);
+  }
+
+  myGetLeader = referrer => {
+    axios
+      .get("https://game-demo.vpnmonster.co/api/v1/referrals/" + referrer)
+      .then(
+        res => {
+          res.status == 200
+            ? this.props.getLeader(
+                res.data.creator.name,
+                res.data.creator.avatar
+              )
+            : console.log("error with connection");
+          //        return store.dispatch(
+          //         getLeader(res.data.creator.name, res.data.creator.avatar)
+          //     );
+        },
+        err => {
+          this.setState({ redirect: true });
+          console.log("wrong reffer and redirecting back");
+        }
+      )
+      .catch(console.log("wrong user"));
+  };
+
+  //  componentMounted() {
+  //console.log("component mounted");
+  //this.myGetLeader(this.props.match.params.referrer);
+  /*    props.match.params.referrer
+      ? props.getLeader(props.match.params.referrer)
+      : (this.state = { redirect: true }); &*/
+  //  }
+  //SAMPLE URL /Invited/80d5d
   render() {
     const { classes } = this.props;
 
     return (
       <div>
+        {this.state.redirect ? <Redirect to="/" /> : null}
         <Section>
           <Title
             title="Welcome to WC APP"
@@ -49,16 +94,19 @@ class Invited extends React.Component {
           <Paper className={classes.root} elevation={1}>
             <Grid container spacing={16}>
               <Grid item>
-                <Avatar className={classNames(classes.avatar)}>A</Avatar>
+                <Avatar
+                  src={this.props.avatar}
+                  className={classNames(classes.avatar)}
+                />
               </Grid>
               <Grid item>
                 <Typography variant="headline" component="h3">
-                  Mark Zuckerberg
+                  {this.props.name}
                 </Typography>
               </Grid>
             </Grid>
           </Paper>
-          <Button fullWidth className={classes.button}>
+          <Button fullWidth className={classes.button} onClick={() => {}}>
             Login to join his team
           </Button>
         </Section>
@@ -71,4 +119,27 @@ Invited.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Invited);
+const mapStateToProps = state => {
+  return {
+    // You can now say this.props.books
+    name: state.referrerName,
+    avatar: state.referrerAvatar
+  };
+};
+
+// Maps actions to props
+const mapDispatchToProps = dispatch => {
+  return {
+    // You can now say this.props.createBook
+    getLeader: (referrerName, referrerAvatar) =>
+      dispatch(getLeader(referrerName, referrerAvatar))
+  };
+};
+
+//export default withStyles(styles)(
+//  connect(mapStateToProps, mapDispatchToProps)(Invited)
+//);
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(Invited)
+);

@@ -59,51 +59,47 @@ class QuestionsPost extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-      <div>
-        <Section />
-        <Section>
-          <Grid xs={12} item>
-            <h1 className={classes.table}>WINNER!</h1>
-            <p className={classNames(classes.table, classes.removeMargin)}>
-              Congratulations!
-            </p>
-          </Grid>
-          <Grid
-            container
-            className={classNames(classes.center, classes.addMargin)}
-            justify="center"
-            xs={12}
-          >
-            <Grid xs={12}>
-              <Avatar
-                alt="Adelle Charles"
-                src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
-                className={classNames(classes.avatar, classes.bigAvatar)}
-              />
-              <p>
-                MAK ATTACK<br />
-                <span className={classes.team}>TEAM XYZ</span>
-              </p>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            className={classNames(classes.center, classes.addMargin)}
-            xs={12}
-          >
-            <h1>
-              +200<br />
-              <span className={classes.seconds}>points</span>
-            </h1>
+      <Section>
+        <Grid xs={12}>
+          <h1 className={classes.table}>WINNER!</h1>
+          <p className={classNames(classes.table, classes.removeMargin)}>
+            Congratulations!
+          </p>
+        </Grid>
+        <Grid
+          container
+          className={classNames(classes.center, classes.addMargin)}
+          justify="center"
+        >
+          <Grid xs={12}>
+            <Avatar
+              alt="Adelle Charles"
+              src="https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg"
+              className={classNames(classes.avatar, classes.bigAvatar)}
+            />
             <p>
-              Your did better than<br />59% of players
+              MAK ATTACK<br />
+              <span className={classes.team}>TEAM XYZ</span>
             </p>
-            <Button variant="contained" className={classes.addMargin}>
-              Continue
-            </Button>
           </Grid>
-        </Section>
-      </div>
+        </Grid>
+        <Grid
+          item
+          className={classNames(classes.center, classes.addMargin)}
+          xs={12}
+        >
+          <h1>
+            +200<br />
+            <span className={classes.seconds}>points</span>
+          </h1>
+          <p>
+            Your did better than<br />59% of players
+          </p>
+          <Button variant="contained" className={classes.addMargin}>
+            Continue
+          </Button>
+        </Grid>
+      </Section>
     );
   }
 }
