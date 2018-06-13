@@ -7,7 +7,9 @@ import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Section from "./myComp/Section";
+
 import Title from "./myComp/Title";
+import CookieCheck from "./myComp/Cookie";
 
 const styles = theme => ({
   center: {
@@ -49,6 +51,7 @@ class Questions extends React.Component {
 
     return (
       <div>
+        <CookieCheck />
         <Section>
           <Grid container className={classes.center} justify="center" xs={12}>
             <Grid xs={4}>

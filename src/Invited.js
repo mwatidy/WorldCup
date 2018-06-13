@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Section from "./myComp/Section";
 import Title from "./myComp/Title";
-import { Redirect } from "react-router-dom";
+import GoTo from "./myComp/GoTo";
 
 import { connect } from "react-redux";
 import { createStore } from "redux";
@@ -87,7 +87,7 @@ class Invited extends React.Component {
 
     return (
       <div>
-        {this.state.redirect ? <Redirect to="/" /> : null}
+        {this.state.redirect ? <GoTo to="/" /> : null}
         <Section>
           <Title
             title="Welcome to WC APP"

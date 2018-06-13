@@ -6,7 +6,9 @@ import List from "@material-ui/core/List";
 import classNames from "classnames";
 import Avatar from "@material-ui/core/Avatar";
 import Section from "./myComp/Section";
+
 import Title from "./myComp/Title";
+import CookieCheck from "./myComp/Cookie";
 
 const styles = theme => ({
   img: {
@@ -53,6 +55,7 @@ class QuestionsPre extends React.Component {
 
     return (
       <div>
+        <CookieCheck />
         <Section>
           <h1 className={classes.table}>Quiz Challenge</h1>
         </Section>

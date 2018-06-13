@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import Section from "./myComp/Section";
 import GoTo from "./myComp/GoTo";
 
+import axios from "axios";
+
 import { createStore } from "redux";
 import game from "./Reducers";
 import { getLeader, logIn } from "./Actions";
@@ -37,33 +39,46 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
-
   constructor(props) {
     super(props);
-    //this.renderComponent = this.renderComponent.bind(this);
-    //this.checkStatus = this.checkStatus.bind(this);
-    //this.login = this.login.bind(this);
     const { cookies } = this.props;
 
-    //cookies.set("name", "Change name");
-    //cookies.set("name", "test");
-    //console.log(cookies.get("name"));
+    console.log(cookies.get("auth"));
+    //cookies.remove("auth");
+
     this.state = {
       logged: false,
       message: "checking your status..",
       redirect: false
     };
-
     this.initializeCheckStatus();
-    // Load the SDK asynchronously
   }
 
   getInfo = () => {
+    const { cookies } = this.props;
     FB.api("me?fields=name,id,picture,friends", function(response) {
-      console.log(response);
+      console.log();
+      console.log();
+      console.log();
+      //axios get auth or validate
+      axios
+        .post("https://game-demo.vpnmonster.co/api/v1/auth/login", {
+          avatar: response.picture.data.url,
+          name: response.name,
+          uid: response.id,
+          type: "user"
+        })
+        .then(
+          res => {
+            cookies.set("auth", res.data.token);
+            this.setState({
+              redirect: true
+            });
+          },
+          err => {
+            alert("An error occurred, please refresh the page and try again");
+          }
+        );
     });
   };
 
@@ -80,8 +95,6 @@ class Login extends React.Component {
       FB.getLoginStatus(response => {
         if (response.status == "connected") {
           callback(true);
-          this.getInfo();
-          cookies.set("auth", "HEl00");
         } else {
           callback(false);
         }
@@ -96,7 +109,6 @@ class Login extends React.Component {
     FB.login(response => {
       if (response.status == connected) {
         this.getInfo();
-        cookies.set("auth", "HEl00");
 
         this.setState({
           loggedIn: true,
@@ -113,30 +125,32 @@ class Login extends React.Component {
     const { cookies } = this.props;
 
     if (cookies.get("auth")) {
-      this.state = { redirect: true };
+      this.state = {
+        ...this.state,
+        message: "redirecting you now..",
+        redirect: true
+      };
       //Validate cookie and go to dashboard
     } else {
-    }
+      (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
 
-    (function(d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
-
-    this.checkStatus(loggedIn => {
-      //returns true if is logged in
-
-      this.setState({
-        logged: loggedIn,
-        showButton: loggedIn,
-        message: "You are logged in"
+      this.checkStatus(loggedIn => {
+        this.setState({
+          logged: loggedIn,
+          showButton: !loggedIn,
+          message: "You are logged in"
+        });
+        loggedIn ? this.getInfo() : null;
       });
-    });
+    }
   };
 
   render() {
@@ -144,7 +158,7 @@ class Login extends React.Component {
 
     return (
       <Section>
-        {this.state.redirect ? <GoTo to="Dashboard" /> : null}
+        {this.state.redirect ? <GoTo to="Team" /> : null}
         <h2 className={classes.headline}>World Cup Challenge</h2>
         <Grid
           container
@@ -156,7 +170,7 @@ class Login extends React.Component {
             <Button
               className={classes.button}
               color="primary"
-              onClick={() => this.authorize(this.login())}
+              onClick={() => this.login()}
             >
               <AccountCircle className={classes.leftIcon} />
               Login With Facebook
@@ -170,7 +184,8 @@ class Login extends React.Component {
   }
 }
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  cookies: instanceOf(Cookies).isRequired
 };
 
 export default withCookies(withStyles(styles)(Login));

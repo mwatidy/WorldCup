@@ -18,6 +18,7 @@ import Group from "@material-ui/icons/Group";
 import Notifications from "@material-ui/icons/Notifications";
 import Title from "./myComp/Title";
 import Section from "./myComp/Section";
+import CookieCheck from "./myComp/Cookie";
 import { Link } from "react-router-dom";
 
 const styles = theme => ({
@@ -133,6 +134,7 @@ class Instructions extends React.Component {
 
     return (
       <div>
+        <CookieCheck />
         <ul>
           <li onClick={() => this.showSection("intro")}>Introduction</li>
           <li onClick={() => this.showSection("how")}>How to play</li>

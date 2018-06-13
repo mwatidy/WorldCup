@@ -14,8 +14,10 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+
 import Title from "./myComp/Title";
 import Section from "./myComp/Section";
+import CookieCheck from "./myComp/Cookie";
 
 const styles = theme => ({
   container: {
@@ -72,6 +74,7 @@ class Team extends React.Component {
 
     return (
       <div className={classes.container}>
+        <CookieCheck />
         <Section>
           <Title
             title="Team Members"
