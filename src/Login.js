@@ -16,6 +16,7 @@ import game from "./Reducers";
 import { getLeader, logIn } from "./Actions";
 
 import { withCookies, Cookies } from "react-cookie";
+var FB;
 
 const styles = theme => ({
   button: {
@@ -41,9 +42,9 @@ const styles = theme => ({
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    const { cookies } = this.props;
 
-    console.log(cookies.get("auth"));
+    //console.log(cookies.get("auth"));
+    //console.log(cookies.get("id"));
     //cookies.remove("auth");
 
     this.state = {
@@ -56,10 +57,7 @@ class Login extends React.Component {
 
   getInfo = () => {
     const { cookies } = this.props;
-    FB.api("me?fields=name,id,picture,friends", function(response) {
-      console.log();
-      console.log();
-      console.log();
+    FB.api("me?fields=name,id,picture,friends", response => {
       //axios get auth or validate
       axios
         .post("https://game-demo.vpnmonster.co/api/v1/auth/login", {
@@ -71,6 +69,7 @@ class Login extends React.Component {
         .then(
           res => {
             cookies.set("auth", res.data.token);
+            cookies.set("id", res.data.id);
             this.setState({
               redirect: true
             });
@@ -83,7 +82,6 @@ class Login extends React.Component {
   };
 
   checkStatus = callback => {
-    const { cookies } = this.props;
     window.fbAsyncInit = () => {
       FB.init({
         appId: "362073350865440",
@@ -107,7 +105,7 @@ class Login extends React.Component {
 
     //cookies.set("name", "test");
     FB.login(response => {
-      if (response.status == connected) {
+      if (response.status == "connected") {
         this.getInfo();
 
         this.setState({
@@ -158,7 +156,7 @@ class Login extends React.Component {
 
     return (
       <Section>
-        {this.state.redirect ? <GoTo to="Team" /> : null}
+        {this.state.redirect ? <GoTo to="Instructions" /> : null}
         <h2 className={classes.headline}>World Cup Challenge</h2>
         <Grid
           container

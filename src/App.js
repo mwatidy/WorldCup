@@ -11,6 +11,7 @@ import {
 import Instructions from "./Instructions";
 import Login from "./Login";
 import Invited from "./Invited";
+import INVITEDNEW from "./INVITEDNEW";
 import Team from "./Team";
 import Dashboard from "./Dashboard";
 import QuestionsPre from "./QuestionsPre";
@@ -21,14 +22,7 @@ import { Helmet } from "react-helmet";
 import Title from "./myComp/Title";
 import CookieCheck from "./myComp/Cookie";
 
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import game from "./Reducers";
-import { getLeader, logIn } from "./Actions";
-
 import { Cookies, withCookies } from "react-cookie";
-
-const store = createStore(game);
 
 const styles = {
   main: {
@@ -44,6 +38,12 @@ const styles = {
     listStyleType: "none"
   }
 };
+const NotFound = () => (
+  <div>
+    <h3>404 page not found</h3>
+    <p>We are sorry but the page you are looking for does not exist.</p>
+  </div>
+);
 
 class App extends React.Component {
   constructor(props) {
@@ -124,14 +124,16 @@ class App extends React.Component {
 
           <div id="status" />
           <Switch>
-            <Route exact path="/Instructions" component={Instructions} />
-            <Route exact path="/Login" component={Login} />
-            <Route exact path="/Invited/:referrer" component={Invited} />
-            <Route exact path="/Team" component={Team} />
-            <Route exact path="/Dashboard" component={Dashboard} />
-            <Route exact path="/QuestionsPre" component={QuestionsPre} />
-            <Route exact path="/Questions" component={Questions} />
-            <Route exact path="/QuestionsPost" component={QuestionsPost} />
+            <Route exact path="/Invited" component={INVITEDNEW} />
+            <Route path="/Invited/:referrer" component={INVITEDNEW} />
+            <Route path="/Instructions" component={Instructions} />
+            <Route path="/Login" component={Login} />
+            <Route path="/Team" component={Team} />
+            <Route path="/Dashboard" component={Dashboard} />
+            <Route path="/QuestionsPre" component={QuestionsPre} />
+            <Route path="/Questions" component={Questions} />
+            <Route path="/QuestionsPost" component={QuestionsPost} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </div>
       </Router>

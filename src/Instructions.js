@@ -16,10 +16,18 @@ import Avatar from "@material-ui/core/Avatar";
 import Alarm from "@material-ui/icons/Alarm";
 import Group from "@material-ui/icons/Group";
 import Notifications from "@material-ui/icons/Notifications";
+
+import { withCookies, Cookies } from "react-cookie";
+import api from "./api";
+
 import Title from "./myComp/Title";
 import Section from "./myComp/Section";
 import CookieCheck from "./myComp/Cookie";
+import GoTo from "./myComp/GoTo";
+
 import { Link } from "react-router-dom";
+
+//Check if user has a team if yes then redirect to Dashboard
 
 const styles = theme => ({
   root: {
@@ -80,12 +88,27 @@ const tutorialSteps = [
 ];
 
 class Instructions extends React.Component {
-  state = {
-    hideIntro: 0,
-    hideHow: 1,
-    hideRules: 1,
-    activeStep: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      hideIntro: 0,
+      hideHow: 1,
+      hideRules: 1,
+      activeStep: 0,
+      redirect: false
+    };
+  }
+
+  componentDidMount() {
+    var data = {
+      token: window.auth
+    };
+
+    api("ME", data, res => {
+      res.memberships.length > 0 ? this.setState({ redirect: true }) : null;
+      window.me = res;
+    });
+  }
 
   showSection = name => {
     this.setState({
@@ -135,6 +158,7 @@ class Instructions extends React.Component {
     return (
       <div>
         <CookieCheck />
+        {this.state.redirect ? <GoTo to="Team" /> : null}
         <ul>
           <li onClick={() => this.showSection("intro")}>Introduction</li>
           <li onClick={() => this.showSection("how")}>How to play</li>
@@ -280,4 +304,6 @@ Instructions.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(Instructions);
+export default withCookies(
+  withStyles(styles, { withTheme: true })(Instructions)
+);

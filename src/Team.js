@@ -19,6 +19,8 @@ import Title from "./myComp/Title";
 import Section from "./myComp/Section";
 import CookieCheck from "./myComp/Cookie";
 
+import api from "./api";
+
 const styles = theme => ({
   container: {
     display: "flex",
@@ -33,25 +35,44 @@ const styles = theme => ({
 });
 
 class Team extends React.Component {
-  state = {
-    name: "MARK",
-    friends: [
-      {
-        name: "Tommy Wiseau",
-        pic:
-          "https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg",
-        inTeam: 0,
-        approved: 0
-      },
-      {
-        name: "George Greg",
-        pic:
-          "https://m.media-amazon.com/images/M/MV5BMjEzNTgyOTY4OV5BMl5BanBnXkFtZTgwMzY2MzEwMjE@._V1_UX214_CR0,0,214,317_AL_.jpg",
-        inTeam: 1,
-        approved: 1
-      }
-    ]
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      teamName: null,
+      error: null,
+      friends: [
+        {
+          name: "Tommy Wiseau",
+          pic:
+            "https://pbs.twimg.com/profile_images/724965716932218880/wTyXplXm_400x400.jpg",
+          inTeam: 0,
+          approved: 0
+        },
+        {
+          name: "George Greg",
+          pic:
+            "https://m.media-amazon.com/images/M/MV5BMjEzNTgyOTY4OV5BMl5BanBnXkFtZTgwMzY2MzEwMjE@._V1_UX214_CR0,0,214,317_AL_.jpg",
+          inTeam: 1,
+          approved: 1
+        }
+      ]
+    };
+  }
+
+  componentDidMount = () => {
+    window.me ? console.log(window.me) : console.log("no team");
+    console.log(window.me);
+    var data = {
+      token: window.auth,
+      data: "ac7f3"
+    };
+    api("TEAM", data, res => {
+      console.log(res);
+    });
+    //get team name
   };
+  ///api/v1/teams/023d0318-56bd-4fb1-acd3-8dedd3f6be4d
 
   handleToggle = value => () => {
     var newV = this.state.friends;
@@ -66,7 +87,9 @@ class Team extends React.Component {
   };
 
   handleChange = event => {
-    this.setState({ name: event.target.value });
+    if (event.target.value.match(/s/gi)) {
+      this.setState({ ...this.state, teamName: event.target.value });
+    }
   };
 
   render() {
@@ -85,70 +108,85 @@ class Team extends React.Component {
               className={classes.formControl}
               aria-describedby="name-helper-text"
               fullWidth
+              error={this.state.error}
             >
-              <InputLabel htmlFor="name-helper">Team Name</InputLabel>
+              {this.state.teamName ? null : (
+                <InputLabel htmlFor="name-helper">Team Name</InputLabel>
+              )}
               <Input
                 id="name-helper"
-                value={this.state.name}
+                value={this.state.teamName}
                 onChange={this.handleChange}
               />
+
               <FormHelperText id="name-helper-text">
-                Choose a name for your team
+                {this.state.teamName
+                  ? "Your team name can't be modified "
+                  : "Name should be letters and numbers without spaces"}
               </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth>Save</Button>
+            <Button
+              fullWidth
+              onClick={() => this.createTeam(this.state.teamName)}
+            >
+              Save
+            </Button>
           </Grid>
         </Section>
-        <Section>
-          <Grid xs={12}>
-            <Title title="Accepted Invitations" />
-            <List>
-              {this.state.friends.length ? (
-                this.state.friends.map((friend, value) => (
-                  <ListItem
-                    key={value}
-                    button={friend.approved ? null : "1"}
-                    //disabled={friend.inTeam ? "approved" : ""}
-                    className={classes.listItem}
-                    onClick={friend.approved ? null : this.selectToggle(value)}
-                  >
-                    <Avatar alt="Remy Sharp" src={friend.pic} />
-                    <ListItemText
-                      primary={friend.name}
-                      secondary={friend.approved ? "approved" : ""}
-                    />
-                    <ListItemSecondaryAction>
-                      <Checkbox
-                        disabled={friend.approved ? "1" : ""}
-                        checked={friend.inTeam}
-                        onChange={this.handleToggle(value)}
-                        //onClick = {!friend.inTeam}
-                        //onChange = {this.handleToggle(value)}
-                        //                  onChange={this.handleToggle(value)}
-                        //                  checked={this.state.checked.indexOf(value) !== -1}
+        {this.state.teamName ? (
+          <Section>
+            <Grid item xs={12}>
+              <Title title="Accepted Invitations" />
+              <List>
+                {this.state.friends.length ? (
+                  this.state.friends.map((friend, value) => (
+                    <ListItem
+                      key={value}
+                      button={friend.approved ? null : true}
+                      //disabled={friend.inTeam ? "approved" : ""}
+                      className={classes.listItem}
+                      onClick={
+                        friend.approved ? null : this.selectToggle(value)
+                      }
+                    >
+                      <Avatar alt="Remy Sharp" src={friend.pic} />
+                      <ListItemText
+                        primary={friend.name}
+                        secondary={friend.approved ? "approved" : ""}
                       />
-                    </ListItemSecondaryAction>
+                      <ListItemSecondaryAction>
+                        <Checkbox
+                          disabled={friend.approved ? true : null}
+                          checked={friend.inTeam}
+                          onChange={this.handleToggle(value)}
+                          //onClick = {!friend.inTeam}
+                          //onChange = {this.handleToggle(value)}
+                          //                  onChange={this.handleToggle(value)}
+                          //                  checked={this.state.checked.indexOf(value) !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))
+                ) : (
+                  <ListItem>
+                    <ListItemText primary="No one opened your invitation yet. " />
                   </ListItem>
-                ))
+                )}
+              </List>
+            </Grid>
+            <Grid item xs={12}>
+              {this.state.friends.length ? (
+                <Button fullWidth>Approve Selected</Button>
               ) : (
-                <ListItem>
-                  <ListItemText primary="No one opened your invitation yet. " />
-                </ListItem>
+                ""
               )}
-            </List>
-          </Grid>
-          <Grid xs={12}>
-            {this.state.friends.length ? (
-              <Button fullWidth>Approve Selected</Button>
-            ) : (
-              ""
-            )}
-            <hr />
-            <Button fullWidth>Invite members</Button>
-          </Grid>
-        </Section>
+              <hr />
+              <Button fullWidth>Invite members</Button>
+            </Grid>
+          </Section>
+        ) : null}
       </div>
     );
   }
@@ -159,3 +197,5 @@ Team.propTypes = {
 };
 
 export default withStyles(styles)(Team);
+
+//autoFocus={this.state.teamName ? null : true}
